@@ -1,10 +1,17 @@
-name: hello world
-on:
-  push:
-    branches: [main]
+name: Run Tests
+
+on: [push]
+
 jobs:
-  say-hello:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "TODAY=$(date +%y-%m-%d %H:%M:%S)" >> $GITHUB_ENV
-      - run: echo hello world, today is $TODAY
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
